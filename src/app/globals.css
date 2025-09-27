@@ -24,3 +24,22 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Link styles for better visibility in dark theme */
+.itinerary-content a {
+  color: #60a5fa !important;
+  text-decoration: underline !important;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.itinerary-content a:hover {
+  color: #93c5fd !important;
+  text-decoration: underline !important;
+}
+
+/* Strong text styling */
+.itinerary-content strong {
+  color: #ffffff;
+  font-weight: 600;
+}
