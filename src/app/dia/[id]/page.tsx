@@ -1,11 +1,10 @@
 'use client'
 
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { itineraryData } from '@/data/itinerary'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 
-function getMapUrl(dayId: string, route: string) {
+function getMapUrl(dayId: string) {
   // Configuraciones específicas por día para mejor zoom y centrado
   const mapConfigs: Record<string, { bbox: string; center: string }> = {
     '0-1': {
@@ -94,13 +93,7 @@ function extractLocationLink(highlight: string): { text: string; location?: stri
 
 export default function DayDetailPage() {
   const params = useParams()
-  const router = useRouter()
   const dayId = params.id as string
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
   
   const day = itineraryData.find(d => d.id === dayId)
   const currentIndex = itineraryData.findIndex(d => d.id === dayId)
@@ -234,7 +227,7 @@ export default function DayDetailPage() {
               <h3 className="text-lg font-bold text-white mb-4">📍 Mapa de ubicaciones</h3>
               <div className="aspect-video rounded-lg overflow-hidden bg-gray-800 flex items-center justify-center">
                 <iframe
-                  src={getMapUrl(day.id, day.route)}
+                  src={getMapUrl(day.id)}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

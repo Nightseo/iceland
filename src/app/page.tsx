@@ -10,11 +10,6 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('')
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +17,7 @@ export default function Home() {
       let current = ''
       
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop
+        const sectionTop = (section as HTMLElement).offsetTop
         if (window.pageYOffset >= sectionTop - 100) {
           current = section.getAttribute('id') || ''
         }
@@ -71,8 +66,8 @@ export default function Home() {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
-            return `${context.dataset.label}: ${context.parsed.y} horas`
+          label: function (tooltipItem: { dataset: { label?: string }; parsed: { y: number } }) {
+            return `${tooltipItem.dataset.label || ''}: ${tooltipItem.parsed.y} horas`
           },
         },
       },
